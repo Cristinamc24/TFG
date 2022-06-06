@@ -1,0 +1,57 @@
+# importar los datos
+
+library(GEOquery)
+my_id <- "GSE63477"
+gse <- getGEO(my_id)
+View(gse)
+gse[["GSE106977_series_matrix.txt.gz"]]
+
+# Comprobar cuántas plataformas se utilizan
+length(gse)
+gse <-gse[[1]]
+gse
+
+pData(gse) #imprimir información de muestra
+fData(gse) #imprimir la anotación del gen
+exprs(gse)[1,] #impirmir los datos de expresión
+
+pData(gse)$data_processing[1] #para saber que los datos se expresan en escala log
+summary(exprs(gse))
+exprs(gse) <- log2(exprs(gse))
+summary(exprs(gse))
+
+ex <- exprs(gse) #matriz de expresión
+View(ex)
+
+ex <- na.omit(ex) # eliminar filas con NA
+ex <- ex[!duplicated(ex), ] # eliminar duplicados
+ex <- ex[2722:68540,] # eliminar filas con NA en el nombre de la fila
+View(ex)
+
+library(dplyr)
+sampleInfo <- pData(gse)
+head(sampleInfo)
+View(sampleInfo)
+table(sampleInfo$`pathological complete response:ch1`) # de esta forma puede ver la columna de interés, en este caso, la de pcr
+sampleInfo <- select(sampleInfo, `pathological complete response:ch1`) # de esta forma me quedo solo con los valores de esa columna de interés
+sampleInfo <- rename(sampleInfo, pcr = `pathological complete response:ch1`)
+head(sampleInfo)
+dim(sampleInfo)
+sampleInfo$sample
+
+#Para guardarlo
+write.csv(sampleInfo, file = "sampleInfo.csv") #SampleInfo sería la tabla de pcr tanto "yes" como "no"
+save(sampleInfo, file = "sampleInfo.Rdata")
+save(ex, file = "expression_matrix.Rdata")
+
+#De esta forma puedo quedarme solo con los valores "yes" o "no" de la pcr (aunque sé que no es necesario sacarlo)
+filter(sampleInfo, pcr == "yes")
+pcr_yes <- filter(sampleInfo, pcr == "yes")
+View(pcr_yes)
+filter(sampleInfo, pcr == "no")
+pcr_no <- filter(sampleInfo, pcr == "no")
+View(pcr_no)
+write.csv(pcr_no, file = "pcr_no.csv")
+save(pcr_no, file = "pcr_no.Rdata")
+write.csv(pcr_yes, file = "pcr_yes.csv")
+save(pcr_yes, file = "pcr_yes.Rdata")

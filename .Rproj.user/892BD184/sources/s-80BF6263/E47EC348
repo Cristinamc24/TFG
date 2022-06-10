@@ -1,0 +1,28 @@
+{
+    "id": "E47EC348",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1654882585761.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "id": "39d1d39e05d04f5e89ec70c65ea4d31c",
+        "name": "gset",
+        "title": "gset",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 2590848811496,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1654882585761,
+    "read_only": false,
+    "read_only_alternatives": []
+}

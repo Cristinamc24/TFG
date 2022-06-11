@@ -7,27 +7,38 @@
 ########################################################################
 
 # 0. Libraries and setup
-library(GEOquery) library(limma) l ibrary(umap)
+library(GEOquery) 
+library(limma) 
+library(umap)
 
-probeid2genename = function(probeid){ require(dplyr) df =
-gset@featureData@data fila = (dplyr::filter(df , ID ==
-probeid))$gene_assignment if (length(fila) == 0){return(NA)} else { genename
-= strsplit(fila, split = "//")[[1]][2] return(gsub(" ","",genename)) } }
+probeid2genename = function(probeid) { 
+	require(dplyr) 
+	df =gset@featureData@data 
+	fila = (dplyr::filter(df , ID ==probeid))$gene_assignment 
+	if (length(fila) == 0) {
+		return(NA)
+	} 
+	else { 
+		genename = strsplit(fila, split = "//")[[1]][2] 
+		return(gsub(" ","",genename)) 
+		} 
+	}
 
-Sys.setenv("VROOM_CONNECTION_SIZE" = 50000000) # necesario para descargar
-datos con getGEO
+Sys.setenv("VROOM_CONNECTION_SIZE" = 500000) # necesario para descargar datos con getGEO
+# Hay que ajustar el valor para que la descarga con getGEO se realice bien y se genere gset correctamente
 
 # 1. Data download
 gset <- getGEO("GSE106977", GSEMatrix =TRUE, AnnotGPL=FALSE)
 
-if (length(gset) > 1) idx <- grep("GPL17586", attr(gset, "names")) else idx <-
-1 gset <- gset[[idx]]
+if (length(gset) > 1) idx <- grep("GPL17586", attr(gset, "names")) else idx <-1 
+gset <- gset[[idx]]
 
 fvarLabels(gset) <- make.names(fvarLabels(gset))
 
 gsms <- paste0("00010110000001000000100001010110001100010110010000",
                "01111101110000001100000001010010010100100001011010",
-               "1100000110011110111") sml <- strsplit(gsms, split="")[[1]]
+               "1100000110011110111") 
+sml <- strsplit(gsms, split="")[[1]]
 
 # 2. Get the expression matrix
 ex <- exprs(gset)

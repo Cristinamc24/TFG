@@ -1,3 +1,16 @@
 
 *.Rdata
 tabla_pCR.csv
+coexp_modules.pdf
+data-black.csv
+data-green.csv
+geneInfo.csv
+genes-black.txt
+genes-green.txt
+kk.pdf
+module_pCR-correlation.pdf
+modulo_green.pdf
+Rplots.pdf
+sample_clustering-pCR.pdf
+sampleClustering.pdf
+soft_threshold.pdf

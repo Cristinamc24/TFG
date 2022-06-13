@@ -1,4 +1,4 @@
-# Este script modela la red de coexpresión desde la matriz de expresión del dataset GSE106977 y obtiene los módulos de genes asociados con pCR
+# Este script modela la red de coexpresion desde la matriz de expresion del dataset GSE106977 y obtiene los modulos de genes asociados con pCR
 
 ########################################################################
 
